@@ -30,5 +30,5 @@ def create_excel():
 
 
 def save_to_excel(ws, row, data):
-    for col, value in enumerate(data, start=1):
+    for col, value in enumerate(data.values(), start=1):
         ws.cell(row=row, column=col, value=value)
