@@ -101,12 +101,17 @@ def safe_text(element):
 
 def extract_features(text):
     """Extracts specific features from the given text and returns a dictionary with boolean values indicating the presence of each feature."""
-    t = text.lower()
+    marker = "dispune de:"
+    idx = text.lower().find(marker)
+    t = text[idx + len(marker) :] if idx != -1 else ""
     return {
-        "has_double_glazed_windows": "geamă termopan" in t,
+        "has_double_glazed_windows": "geamuri termopan" in t,
         "has_AC": "aer condiționat" in t,
-        "has_underfloor_heating": "încălzire în pardoseală" in t,
-        "has_furniture": "toată mobila" in t,
+        "has_underfloor_heating": "încălzire în pardoseală" in t
+        or "încălzire prin pardoseală" in t,
+        "has_furniture": "toată mobila" in t
+        or "mobila și tehnica" in t
+        or "mobilă" in t,
     }
 
 
